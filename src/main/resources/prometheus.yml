@@ -4,9 +4,10 @@ global:
   
 # conf. Prometheus
 scrape_configs:    
-  - job_name: 'transacao_prometheus_prod'
-    # Substitui o padrão global, scrape alvo a cada 5 segundos.
-    scrape_interval: 10s
+  - job_name: 'desafio_transacao_prometheus_prod'
+    # Substitui o padrão global, scrape alvo a cada 10 segundos.
+    #scrape_interval: 10s
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: ['host.docker.internal:8080']
+      #- targets: ['localhost:8080']
