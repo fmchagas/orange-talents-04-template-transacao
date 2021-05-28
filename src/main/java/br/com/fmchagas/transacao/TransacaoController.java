@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fmchagas.cartao.CartaoRepository;
-
 
 @RestController
 @RequestMapping("/cartoes")
@@ -20,7 +18,7 @@ public class TransacaoController {
 	private TransacaoRepository transacaoRepository;
 
 	@Autowired
-	public TransacaoController(TransacaoRepository transacaoRepository, CartaoRepository cartaoRepository) {
+	public TransacaoController(TransacaoRepository transacaoRepository) {
 		this.transacaoRepository = transacaoRepository;
 	}
 	
