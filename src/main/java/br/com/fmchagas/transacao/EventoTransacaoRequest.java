@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 
 import org.springframework.util.Assert;
 
@@ -23,9 +25,9 @@ public class EventoTransacaoRequest {
 	
 	private @NotBlank UUID id;
 	
-	private @NotNull BigDecimal valor;
+	private @NotNull @Positive BigDecimal valor;
 	
-	private @NotNull LocalDateTime efetivadaEm;
+	private @NotNull @PastOrPresent LocalDateTime efetivadaEm;
 	
 	private @NotNull EstabelecimentoRequest estabelecimentoRequest;
 	
@@ -65,12 +67,5 @@ public class EventoTransacaoRequest {
 
 	public String getNumeroCartao() {
 		return cartaoRequest.getNumero();
-	}
-
-
-	@Override
-	public String toString() {
-		return "EventoTransacaoRequest [id=" + id + ", valor=" + valor + ", efetivadaEm=" + efetivadaEm
-				+ ", estabelecimentoRequest=" + estabelecimentoRequest + ", cartaoRequest=" + cartaoRequest + "]";
 	}
 }

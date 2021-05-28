@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 
 import org.springframework.util.Assert;
 
@@ -22,9 +24,9 @@ public class Transacao {
 	@Id @Column(columnDefinition = "BINARY(16)")
 	private @NotNull UUID id;
 	
-	private @NotNull BigDecimal valor;
+	private @NotNull @Positive BigDecimal valor;
 	
-	private @NotNull LocalDateTime efetivadaEm;
+	private @NotNull @PastOrPresent LocalDateTime efetivadaEm;
 	
 	@Embedded @NotNull
 	private Estabelecimento estabelecimento;
@@ -51,9 +53,19 @@ public class Transacao {
 		this.cartao = cartao;
 	}
 
-	@Override
-	public String toString() {
-		return "Transacao [valor=" + valor + ", estabelecimento=" + estabelecimento + ", cartao=" +   "]";
+	public UUID getId() {
+		return id;
 	}
 
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public LocalDateTime getEfetivadaEm() {
+		return efetivadaEm;
+	}
+
+	public Estabelecimento getEstabelecimento() {
+		return estabelecimento;
+	}
 }

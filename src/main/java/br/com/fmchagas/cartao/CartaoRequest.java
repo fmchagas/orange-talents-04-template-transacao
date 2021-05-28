@@ -28,9 +28,4 @@ public class CartaoRequest {
 	public String getNumero() {
 		return numero;
 	}
-
-	@Override
-	public String toString() {
-		return "CartaoRequest [numero=" + numero + ", email=" + email + "]";
-	}
 }
