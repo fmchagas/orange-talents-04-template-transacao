@@ -1,6 +1,7 @@
 package br.com.fmchagas.transacao;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -35,7 +37,10 @@ class TransacaoControllerTest {
 		when(transacaoRepository.findFirst10ByCartaoNumeroOrderByEfetivadaEmDesc(cartaoNumero)).thenReturn(List.of());
 		
 		try {
-			mockMvc.perform(get(uri, cartaoNumero))
+			mockMvc.perform(
+					get(uri, cartaoNumero)
+					.with(jwt().authorities(new SimpleGrantedAuthority("SCOPE_transacao:read")))
+					)
 			.andExpect(status().isNotFound());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,8 +59,10 @@ class TransacaoControllerTest {
 			.thenReturn(transacoes);
 		
 		try {
-			mockMvc.perform(get(uri, cartaoNumero))
-			.andExpect(status().isOk());
+			mockMvc.perform(
+					get(uri, cartaoNumero)
+					.with(jwt().authorities(new SimpleGrantedAuthority("SCOPE_transacao:read")))
+					).andExpect(status().isOk());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
